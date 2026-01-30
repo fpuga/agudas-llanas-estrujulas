@@ -8,13 +8,13 @@ interface SyllableBlockProps {
   disabled?: boolean;
 }
 
-export function SyllableBlock({ 
-  syllable, 
-  isSelected, 
-  isCorrect, 
-  isWrong, 
+export function SyllableBlock({
+  syllable,
+  isSelected,
+  isCorrect,
+  isWrong,
   onClick,
-  disabled 
+  disabled,
 }: SyllableBlockProps) {
   let bgColor = 'bg-white';
   let borderColor = 'border-sky-200';
@@ -38,14 +38,7 @@ export function SyllableBlock({
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`
-        ${bgColor} ${borderColor} ${textColor}
-        border-b-8 active:border-b-0 active:translate-y-2
-        w-20 h-20 md:w-28 md:h-28 rounded-2xl flex items-center justify-center
-        text-2xl md:text-4xl font-black uppercase shadow-lg
-        transition-all duration-100
-        disabled:cursor-default disabled:active:translate-y-0 disabled:active:border-b-8
-      `}
+      className={` ${bgColor} ${borderColor} ${textColor} flex h-20 w-20 items-center justify-center rounded-2xl border-b-8 text-2xl font-black uppercase shadow-lg transition-all duration-100 active:translate-y-2 active:border-b-0 disabled:cursor-default disabled:active:translate-y-0 disabled:active:border-b-8 md:h-28 md:w-28 md:text-4xl`}
     >
       {syllable}
     </button>

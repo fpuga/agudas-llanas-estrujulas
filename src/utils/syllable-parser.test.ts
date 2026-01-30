@@ -29,7 +29,7 @@ describe('Tonic Index Finder', () => {
 
   it('should find tonic index in non-accented words (natural stress)', () => {
     // Ends in vowel -> penultimate
-    expect(findTonicIndex(['ca', 'sa'])).toBe(0); 
+    expect(findTonicIndex(['ca', 'sa'])).toBe(0);
     // Ends in consonant != n, s -> last
     expect(findTonicIndex(['pa', 'pel'])).toBe(1);
     // Ends in n, s -> penultimate

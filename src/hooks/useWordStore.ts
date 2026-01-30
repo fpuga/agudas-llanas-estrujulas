@@ -4,16 +4,20 @@ import initialWords from '../data/words.json';
 
 export function useWordStore() {
   const [words, setWords] = useState<Word[]>(initialWords as Word[]);
-  const [fileHandle, setFileHandle] = useState<FileSystemFileHandle | null>(null);
+  const [fileHandle, setFileHandle] = useState<FileSystemFileHandle | null>(
+    null
+  );
 
   // Load words from a local file if desired
   const loadFromFile = async () => {
     try {
       const [handle] = await window.showOpenFilePicker({
-        types: [{
-          description: 'JSON Files',
-          accept: { 'application/json': ['.json'] },
-        }],
+        types: [
+          {
+            description: 'JSON Files',
+            accept: { 'application/json': ['.json'] },
+          },
+        ],
       });
       setFileHandle(handle);
       const file = await handle.getFile();
@@ -32,10 +36,12 @@ export function useWordStore() {
       try {
         const handle = await window.showSaveFilePicker({
           suggestedName: 'words.json',
-          types: [{
-            description: 'JSON Files',
-            accept: { 'application/json': ['.json'] },
-          }],
+          types: [
+            {
+              description: 'JSON Files',
+              accept: { 'application/json': ['.json'] },
+            },
+          ],
         });
         setFileHandle(handle);
         const writable = await handle.createWritable();
@@ -66,6 +72,6 @@ export function useWordStore() {
     addWord,
     loadFromFile,
     saveToFile,
-    isLocalFile: !!fileHandle
+    isLocalFile: !!fileHandle,
   };
 }

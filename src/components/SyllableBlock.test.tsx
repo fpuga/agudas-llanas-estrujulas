@@ -11,7 +11,7 @@ describe('SyllableBlock', () => {
   it('handles click events', () => {
     const handleClick = vi.fn();
     render(<SyllableBlock syllable="click" onClick={handleClick} />);
-    
+
     fireEvent.click(screen.getByText('click'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -30,8 +30,10 @@ describe('SyllableBlock', () => {
 
   it('does not trigger click when disabled', () => {
     const handleClick = vi.fn();
-    render(<SyllableBlock syllable="nope" disabled={true} onClick={handleClick} />);
-    
+    render(
+      <SyllableBlock syllable="nope" disabled={true} onClick={handleClick} />
+    );
+
     fireEvent.click(screen.getByText('nope'));
     expect(handleClick).not.toHaveBeenCalled();
   });

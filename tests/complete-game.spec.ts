@@ -8,7 +8,11 @@ test('can start Complete and Classify game', async ({ page }) => {
 
   // Check game title
   await expect(page.getByText('Completar y Clasificar')).toBeVisible();
-  
+
   // Check for specific game elements
-  await expect(page.getByRole('heading', { name: 'Completa la palabra con la sílaba tónica:' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', {
+      name: 'Completa la palabra con la sílaba tónica:',
+    })
+  ).toBeVisible();
 });
