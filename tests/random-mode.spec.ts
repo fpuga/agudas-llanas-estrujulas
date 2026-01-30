@@ -29,6 +29,7 @@ test('random mode progresses rounds', async ({ page }) => {
     const detective = page.getByText('Detective de Sílabas');
     const classifier = page.getByText('El Clasificador');
     const lab = page.getByText('Laboratorio');
+    const complete = page.getByText('Completar y Clasificar');
     
-    await expect(detective.or(classifier).or(lab)).toBeVisible();
+    await expect(detective.or(classifier).or(lab).or(complete)).toBeVisible();
 });
