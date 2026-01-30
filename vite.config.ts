@@ -6,6 +6,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/agudas-llanas-estrujulas/',
   plugins: [
     react(),
     tailwindcss(),
