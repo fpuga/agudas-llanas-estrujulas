@@ -13,6 +13,10 @@ interface AdminPanelProps {
   onSaveToFile: () => void;
   isLocalFile: boolean;
   onBack: () => void;
+  // Settings
+  currentUserName: string;
+  currentRounds: number;
+  onUpdateSettings: (name: string, rounds: number) => void;
 }
 
 export function AdminPanel({
@@ -22,9 +26,16 @@ export function AdminPanel({
   onSaveToFile,
   isLocalFile,
   onBack,
+  currentUserName,
+  currentRounds,
+  onUpdateSettings,
 }: AdminPanelProps) {
   const [newWord, setNewWord] = useState('');
   const [preview, setPreview] = useState<Word | null>(null);
+
+  // Settings local state
+  const [tempName, setTempName] = useState(currentUserName);
+  const [tempRounds, setTempRounds] = useState(currentRounds);
 
   const handleWordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value.trim();
@@ -48,6 +59,11 @@ export function AdminPanel({
     }
   };
 
+  const handleSaveSettings = () => {
+    onUpdateSettings(tempName, tempRounds);
+    // Optional: Show a toast or feedback
+  };
+
   return (
     <div className="mx-auto max-w-4xl">
       <div className="mb-8 flex items-center justify-between">
@@ -66,6 +82,45 @@ export function AdminPanel({
             className="rounded-lg bg-sky-600 px-4 py-2 font-bold text-white transition hover:bg-sky-700"
           >
             💾 Guardar {isLocalFile ? 'Cambios' : 'como JSON'}
+          </button>
+        </div>
+      </div>
+
+      <div className="mb-8 rounded-2xl bg-amber-50 p-6 shadow-lg">
+        <h3 className="mb-4 text-xl font-bold text-amber-800">
+          ⚙️ Configuración del Juego
+        </h3>
+        <div className="flex flex-col gap-4 md:flex-row md:items-end">
+          <div className="flex-1">
+            <label className="mb-1 block text-sm font-medium text-amber-900">
+              Nombre del Jugador
+            </label>
+            <input
+              type="text"
+              value={tempName}
+              onChange={(e) => setTempName(e.target.value)}
+              placeholder="Tu nombre"
+              className="w-full rounded-xl border-2 border-amber-200 bg-white p-3 outline-none focus:border-amber-500"
+            />
+          </div>
+          <div className="flex-1">
+            <label className="mb-1 block text-sm font-medium text-amber-900">
+              Rondas por Partida (Aleatorio)
+            </label>
+            <input
+              type="number"
+              min="1"
+              max="50"
+              value={tempRounds}
+              onChange={(e) => setTempRounds(parseInt(e.target.value) || 1)}
+              className="w-full rounded-xl border-2 border-amber-200 bg-white p-3 outline-none focus:border-amber-500"
+            />
+          </div>
+          <button
+            onClick={handleSaveSettings}
+            className="h-[52px] rounded-xl bg-amber-500 px-6 font-bold text-white transition hover:bg-amber-600"
+          >
+            Guardar Configuración
           </button>
         </div>
       </div>

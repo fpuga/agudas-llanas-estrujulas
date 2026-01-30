@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { AppView } from './types';
 import { useWordStore } from './hooks/useWordStore';
+import { useSettings } from './hooks/useSettings';
 import { DetectiveGame } from './components/DetectiveGame';
 import { ClassifierGame } from './components/ClassifierGame';
 import { CompleteGame } from './components/CompleteGame';
@@ -29,10 +30,12 @@ function Menu({
         <h1 className="mb-2 text-5xl font-extrabold text-sky-600 drop-shadow-sm">
           Entrenador de Palabras
         </h1>
-        {userName && (
+        {userName ? (
           <h2 className="text-3xl font-bold text-sky-400">
             ¡Hola, <span className="text-amber-500">{userName}</span>! 👋
           </h2>
+        ) : (
+          <h2 className="text-3xl font-bold text-sky-400">¡Hola! 👋</h2>
         )}
       </div>
 
@@ -201,11 +204,8 @@ function App() {
   const { words, addWord, loadFromFile, saveToFile, isLocalFile } =
     useWordStore();
 
-  const userName = import.meta.env.VITE_USER_NAME;
-  const defaultRounds = parseInt(
-    import.meta.env.VITE_DEFAULT_ROUNDS || '15',
-    10
-  );
+  const { userName, defaultRounds, updateUserName, updateDefaultRounds } =
+    useSettings();
 
   // Helper to pick a random game
   const getRandomGameType = (): GameType => {
@@ -258,6 +258,11 @@ function App() {
       // Normal game finished
       setView('MENU');
     }
+  };
+
+  const handleUpdateSettings = (name: string, rounds: number) => {
+    updateUserName(name);
+    updateDefaultRounds(rounds);
   };
 
   return (
@@ -356,6 +361,9 @@ function App() {
             onSaveToFile={saveToFile}
             isLocalFile={isLocalFile}
             onBack={() => setView('MENU')}
+            currentUserName={userName}
+            currentRounds={defaultRounds}
+            onUpdateSettings={handleUpdateSettings}
           />
         )}
       </main>
