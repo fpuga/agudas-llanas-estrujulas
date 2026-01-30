@@ -36,6 +36,9 @@ export function AdminPanel({
   // Settings local state
   const [tempName, setTempName] = useState(currentUserName);
   const [tempRounds, setTempRounds] = useState(currentRounds);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const isDirty = tempName !== currentUserName || tempRounds !== currentRounds;
 
   const handleWordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value.trim();
@@ -61,7 +64,8 @@ export function AdminPanel({
 
   const handleSaveSettings = () => {
     onUpdateSettings(tempName, tempRounds);
-    // Optional: Show a toast or feedback
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 2000);
   };
 
   return (
@@ -118,9 +122,16 @@ export function AdminPanel({
           </div>
           <button
             onClick={handleSaveSettings}
-            className="h-[52px] rounded-xl bg-amber-500 px-6 font-bold text-white transition hover:bg-amber-600"
+            disabled={!isDirty}
+            className={`h-[52px] min-w-[200px] rounded-xl px-6 font-bold text-white transition ${
+              showSuccess
+                ? 'bg-emerald-500 hover:bg-emerald-600'
+                : isDirty
+                  ? 'bg-amber-500 hover:bg-amber-600'
+                  : 'cursor-not-allowed bg-slate-300 text-slate-500'
+            }`}
           >
-            Guardar Configuración
+            {showSuccess ? '¡Guardado!' : 'Guardar Configuración'}
           </button>
         </div>
       </div>
