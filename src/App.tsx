@@ -35,7 +35,15 @@ function Menu({
             ¡Hola, <span className="text-amber-500">{userName}</span>! 👋
           </h2>
         ) : (
-          <h2 className="text-3xl font-bold text-sky-400">¡Hola! 👋</h2>
+          <h2 className="text-3xl font-bold text-sky-400">
+            ¡Hola!{' '}
+            <button
+              onClick={() => setView('ADMIN')}
+              className="text-amber-500 underline transition hover:text-amber-600"
+            >
+              ¿Cómo te llamas?
+            </button>
+          </h2>
         )}
       </div>
 

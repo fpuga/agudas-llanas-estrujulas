@@ -1,17 +1,33 @@
 import { test, expect } from '@playwright/test';
 
-test('has title and personalized greeting', async ({ page }) => {
+test('has title and can set personalized greeting', async ({ page }) => {
   await page.goto('http://localhost:5173/');
 
-  // Check title (tab title)
+  // Check title
   await expect(page).toHaveTitle(/Entrenador de Palabras/);
 
-  // Check main heading
+  // Check default greeting with link
   await expect(
     page.getByRole('heading', { name: 'Entrenador de Palabras' })
   ).toBeVisible();
+  await expect(page.getByText('¡Hola!')).toBeVisible();
+  const settingsLink = page.getByRole('button', { name: '¿Cómo te llamas?' });
+  await expect(settingsLink).toBeVisible();
 
-  // Check personalized greeting (Antón)
+  // Navigate to settings via link
+  await settingsLink.click();
+
+  // Verify we are in settings
+  await expect(page.getByText('Configuración del Juego')).toBeVisible();
+
+  // Set name
+  await page.getByPlaceholder('Tu nombre').fill('Antón');
+  await page.getByRole('button', { name: 'Guardar Configuración' }).click();
+
+  // Go back
+  await page.getByRole('button', { name: 'Volver' }).click();
+
+  // Verify updated greeting
   await expect(page.getByText('¡Hola, Antón!')).toBeVisible();
 });
 
