@@ -34,3 +34,8 @@ coverage/
 
 # Custom
 private/
+
+# Environment variables
+.env
+.env.*
+!.env.example
