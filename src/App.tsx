@@ -359,6 +359,29 @@ function App() {
           />
         )}
       </main>
+
+      <footer className="mt-12 py-6 text-center text-slate-400">
+        <p className="flex items-center justify-center gap-2 text-sm font-medium">
+          Hecho con <span className="text-rose-400">❤️</span> por{' '}
+          <a
+            href="https://franciscopuga.es"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sky-400 transition hover:text-sky-500 hover:underline"
+          >
+            Francisco Puga
+          </a>
+          <span className="mx-2 opacity-30">|</span>
+          <a
+            href="https://github.com/fpuga/agudas-llanas-estrujulas"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 transition hover:text-slate-600"
+          >
+            Código Fuente
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }
